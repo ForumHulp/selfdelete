@@ -2,7 +2,7 @@
 /**
 *
 * @package Self delete
-* @copyright (c) 2014 John Peskens (http://ForumHulp.com) and Igor Lavrov (https://github.com/LavIgor)
+* @copyright (c) 2014 John Peskens (http://ForumHulp.com)
 * @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
 *
 */
@@ -14,9 +14,9 @@ class selfdelete_module
 	public $u_action;
 	function main($id, $mode)
 	{
-		global $db, $config, $user, $cache, $template, $request, $phpbb_root_path, $phpbb_container, $phpEx;
+		global $db, $user, $template, $request, $phpbb_root_path, $phpEx;
 
-		$this->page_title = $user->lang['ACP_CRON_STATUS_TITLE'];
+		$this->page_title = $user->lang['UCP_SELFDELETE_TITLE'];
 		$this->tpl_name = 'ucp_profile_deactivate';
 
 		if (!$user->data['is_registered'])
@@ -24,9 +24,9 @@ class selfdelete_module
 			trigger_error('NO_USER');
 		}
 
-		$deactivate		= request_var('deactivate', '');
-		$cur_password	= request_var('cur_password', '');
-		$d_reason		= utf8_normalize_nfc(request_var('d_reason', 'Geen reden opgegeven!', true));
+		$deactivate		= $request->variable('deactivate', '');
+		$cur_password	= $request->variable('cur_password', '');
+		$d_reason		= utf8_normalize_nfc($request->variable('d_reason', 'Geen reden opgegeven!', true));
 		$uid 			= (int) $user->data['user_id'];
 
 		$d_reason = substr($d_reason, 0, 100);
